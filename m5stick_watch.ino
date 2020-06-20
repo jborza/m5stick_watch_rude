@@ -54,37 +54,33 @@ void formatNumber(int number){
 int i = 0;
 int lastMinute = -1;
 
+#define CENTER 80
+#define FONT 1
+
 void loop() {
 M5.Rtc.GetTime(&RTC_TimeStruct);
 //refresh screen only if the text changes
 if(RTC_TimeStruct.Minutes != lastMinute){
   M5.Lcd.fillScreen(BLACK);  
 }
+M5.Lcd.setTextDatum(TC_DATUM);
 lastMinute = RTC_TimeStruct.Minutes;
 
-M5.Lcd.setCursor(10, 5);
-M5.Lcd.println("Holy shit, it's already");
-//M5.Lcd.printf("Time: %02d : %02d : %02d\n",RTC_TimeStruct.Hours, RTC_TimeStruct.Minutes, RTC_TimeStruct.Seconds);
+M5.Lcd.drawString("Holy shit, it's already", CENTER, 6);
 
 M5.Lcd.setTextSize(2);
 formatNumber(RTC_TimeStruct.Hours);
-//TODO guess the x-position to center horizontally
-M5.Lcd.setCursor(10,16);
-M5.Lcd.println(buffer);
+M5.Lcd.drawString(buffer, CENTER, 17);
 
 M5.Lcd.setTextSize(1);
-M5.Lcd.setCursor(0,34);
-M5.Lcd.println("        FUCKING  ");
+M5.Lcd.drawString("FUCKING", CENTER, 36);
 
 M5.Lcd.setTextSize(2);
-//TODO guess the x-position to center horizontally
-M5.Lcd.setCursor(10,46);
 formatNumber(RTC_TimeStruct.Minutes);
-M5.Lcd.println(buffer);
+M5.Lcd.drawString(buffer, CENTER, 48);
 
 M5.Lcd.setTextSize(1);
-M5.Lcd.setCursor(0,66);
-M5.Lcd.println("      MOTHERFUCKER!");
+M5.Lcd.drawString("MOTHERFUCKER!", CENTER, 66);
 
 //draw a frame around the text
 M5.Lcd.setCursor(0, 0);
